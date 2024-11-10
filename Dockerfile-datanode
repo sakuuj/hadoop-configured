@@ -1,0 +1,8 @@
+FROM apache/hadoop:3.4.0
+
+COPY hadoop-configs/ ./etc/hadoop/
+COPY datanode-start.sh ./
+USER root
+RUN chmod 755 ./datanode-start.sh
+
+ENTRYPOINT ["/bin/bash", "-c", "./datanode-start.sh"]

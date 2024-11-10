@@ -1,0 +1,9 @@
+FROM apache/hadoop:3.4.0
+
+COPY hadoop-configs/ ./etc/hadoop/
+COPY resourcemanager-start.sh ./
+USER root
+RUN chmod 755 ./resourcemanager-start.sh
+USER hadoop
+
+ENTRYPOINT ["/bin/bash", "-c", "./resourcemanager-start.sh"]
