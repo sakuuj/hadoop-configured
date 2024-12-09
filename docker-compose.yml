@@ -15,7 +15,7 @@ services:
     environment:
       HADOOP_HOME: "/opt/hadoop"
       ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
-      HDFS_NAMENODE_OPTS: "-XX:+UseParallelGC -Xmx2g"
+      HDFS_NAMENODE_OPTS: "-XX:+UseSerialGC -Xmx2g"
       HADOOP_USER_NAME: paul
     volumes:
       - ./data/:/data
@@ -43,7 +43,7 @@ services:
   #    volumes:
 #      - ./test.sh:/opt/test.sh
 
-  datanode-1:
+  datanode:
     build:
       dockerfile: Dockerfile-datanode
     ulimits:
@@ -52,33 +52,7 @@ services:
         hard: 65536
     environment:
       HADOOP_HOME: "/opt/hadoop"
-      YARN_NODEMANAGER_OPTS: "-XX:+UseParallelGC -Xmx2g"
-    networks:
-      - hdnet
-
-  datanode-2:
-    build:
-      dockerfile: Dockerfile-datanode
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    environment:
-      HADOOP_HOME: "/opt/hadoop"
-      YARN_NODEMANAGER_OPTS: "-XX:+UseParallelGC -Xmx2g"
-    networks:
-      - hdnet
-
-  datanode-3:
-    build:
-      dockerfile: Dockerfile-datanode
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    environment:
-      HADOOP_HOME: "/opt/hadoop"
-      YARN_NODEMANAGER_OPTS: "-XX:+UseParallelGC -Xmx2g"
+      YARN_NODEMANAGER_OPTS: "-XX:+UseSerialGC -Xmx2g"
     networks:
       - hdnet
 
